@@ -71,8 +71,6 @@ We refer to this task as “antonym accordance”; despite being somewhat non-in
 Examples (after PCA dimensionality reduction to 2D):
 ![](https://github.com/ednussi/loss2vec/blob/master/display/Figure%200.PNG)
 
-Figure 1: Test accuracy of SGNS model (Word2Vec) from [5] against our improved version (dLCE) as a function of epochs number
-
 ### Comparison
 As an additional evaluation we also compared between similarity measure of antonyms as computed by SGNS and by our model. Examples (cosine similarity, lower is more similar):
 
@@ -86,8 +84,9 @@ As an additional evaluation we also compared between similarity measure of anton
 | new-old  | 0.663  | 0.99 |
 | private-public  | 0.45  | 0.5 | 
 
-Figure 2
 ![](https://github.com/ednussi/loss2vec/blob/master/display/Figure%201.PNG)
+
+Figure 1: Test accuracy of SGNS model (Word2Vec) from [5] against our improved version (dLCE) as a function of epochs number
 
 ### Discussion
 As may be seen from the figure above, our model outperformed word2vec SGNS with NCE loss by 1.3% on antonym accordance task (16.3% for our model vs 15.0% for SNGS).
