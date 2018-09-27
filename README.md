@@ -38,9 +38,6 @@ Where f(x) is the frequency of a word x in the corpus.
 ### Implementation
 In order to simplify the problem, we introduced the following modifications:
 
-* Data Acquisition
-  * Create a 
-
 * Criteria for a word to be considered viable for computing dLCE objective:
   * 100 or more occurrences in corpus
   * Has 1 or more synonyms
