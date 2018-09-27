@@ -38,18 +38,19 @@ Where f(x) is the frequency of a word x in the corpus.
 ### Implementation
 In order to simplify the problem, we introduced the following modifications:
 
-Criteria for a word to be considered viable for computing dLCE objective:
-100 or more occurrences in corpus
-Has 1 or more synonyms
-Has 1 or more antonyms
-For the words that only appeared 100 or more times but don’t meet other requirements, we compute regular SGNS objective.
-Synonyms and antonyms for all the words in original vocabulary are extracted using NLTK’s WordNet interface.
-As there are far less antonyms than synonyms for most of the words, we also considered synonyms of antonyms as antonyms for the target word.
-We implemented a simplified dLCE objective and updated the loss according to:
+* Data Acquisition
+  * Create a 
+
+* Criteria for a word to be considered viable for computing dLCE objective:
+  * 100 or more occurrences in corpus
+  * Has 1 or more synonyms
+  * Has 1 or more antonyms
+  For the words that only appeared 100 or more times but don’t meet other requirements, we compute regular SGNS objective. Synonyms and antonyms for all the words in original vocabulary are extracted using NLTK’s WordNet interface. As there are far less antonyms than synonyms for most of the words, we also considered synonyms of antonyms as antonyms for the target word.
+* We implemented a simplified dLCE objective and updated the loss according to:
  wV cV{#(w,c)log (sim(w,c))+k#(wP0(c) log (-sim(w,c)) 
 +1#(w,u)uS(w)sim(w,u)-1#(w,v)uA(w)sim(w,v)}
-Note: we have implemented the LMI part, but due to runtime/memory problems it was extremely hard to test it on somewhat reasonable corpus.
-When getting the context word for synonyms and antonyms, we only sampled from at most 10000 of all of their contexts (uniformly sampled from the corpus), again because of memory issues.
+  Note: we have implemented the LMI part, but due to runtime/memory problems it was extremely hard to test it on somewhat reasonable corpus.
+* When getting the context word for synonyms and antonyms, we only sampled from at most 10000 of all of their contexts (uniformly sampled from the corpus), again because of memory issues.
 
 The training was performed on regular machine with 32GB of RAM memory and 12 cores.
 We trained on British National Corpus (99736912 words, 490900 unique words, 34639 frequent words), using window size of 5 on both sides of target word, and a dimension of 200; the training took about 14 hours to train 15 epochs.
@@ -57,10 +58,10 @@ We trained on British National Corpus (99736912 words, 490900 unique words, 3463
 ## Results
 ### Preprocessing
 Previous to the training, we extracted the following from BNC:
-Word frequencies (using spaCy tokenizer)
-Word synonyms and antonyms (using nltk.wordnet)
-Word contexts for all vocabulary words in order to get context words for synonyms and antonyms in training time
-LMI values for all pairs of vocabulary words
+* Word frequencies (using spaCy tokenizer)
+* Word synonyms and antonyms (using nltk.wordnet)
+* Word contexts for all vocabulary words in order to get context words for synonyms and antonyms in training time
+* LMI values for all pairs of vocabulary words
 
 ### Building Test Cases
 The test consists from word quartets [w1, w2 , w3, w4] such that  w1, w2  and w3, w4are pairs of a word and its antonym respectively. Examples: [absence, presence, comfort, discomfort], [hate, love, forget, remember]. For each such quartet we create a direction vector using the first pair, apply it on the 3rd word and check if the 4th word is in the top 5 proximity of the result
@@ -70,16 +71,22 @@ We refer to this task as “antonym accordance”; despite being somewhat non-in
 Examples (after PCA dimensionality reduction to 2D):
 ![](https://github.com/ednussi/3deception/blob/master/display/figure1.PNG)
 
-
+Figure 1: Test accuracy of SGNS model (Word2Vec) from [5] against our improved version (dLCE) as a function of epochs number
 
 ### Comparison
-
 As an additional evaluation we also compared between similarity measure of antonyms as computed by SGNS and by our model. Examples (cosine similarity, lower is more similar):
 
-Table 1
-![](https://github.com/ednussi/3deception/blob/master/display/figure1.PNG)
+| Word pair  | SGNS | Our |
+| ------------- | ------------- |
+| absence-presence  | 0.395  | 0.43 |
+| accept-refuse | 0.582  | 0.622 |
+| advantage-disadvantage  |  0.481  | 0.52 |
+| dark-light  | 0.556  | 0.645|
+| definite-indefinite  | 0.7  | 0.751 |
+| new-old  | 0.663  | 0.99 |
+| private-public  | 0.45  | 0.5 | 
 
-Figure 1
+Figure 2
 ![](https://github.com/ednussi/3deception/blob/master/display/figure1.PNG)
 
 ### Discussion
