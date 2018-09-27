@@ -76,10 +76,10 @@ Figure 1: Test accuracy of SGNS model (Word2Vec) from [5] against our improved v
 ### Comparison
 As an additional evaluation we also compared between similarity measure of antonyms as computed by SGNS and by our model. Examples (cosine similarity, lower is more similar):
 
-| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
+| First Header  | Second Header | First Header  |
+| ------------- | ------------- | ------------- |
+| Content Cell  | Content Cell  | Content Cell  |
+| Content Cell  | Content Cell  | Content Cell  |
 
 
 | Word pair  | SGNS | Our |
