@@ -1,4 +1,5 @@
 # Loss2Vec
+<a href="https://www.codecogs.com/eqnedit.php?latex=\sum_{d=1}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\sum_{d=1}" title="\sum_{d=1}" /></a>
 
 ## Word2Vec objective customization for improving synonyms and antonyms oriented tasks
 
