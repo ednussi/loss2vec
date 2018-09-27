@@ -78,17 +78,6 @@ As an additional evaluation we also compared between similarity measure of anton
 
 | Word pair  | SGNS | Our  |
 | ------------- | ------------- | ------------- |
-| absence-presence  | Content Cell  | Content Cell  |
-| accept-refuse  | Content Cell  | Content Cell  |
-| accept-refuse  | Content Cell  | Content Cell  |
-| accept-refuse  | Content Cell  | Content Cell  |
-| accept-refuse  | Content Cell  | Content Cell  |
-| accept-refuse  | Content Cell  | Content Cell  |
-| accept-refuse  | Content Cell  | Content Cell  |
-
-
-| Word pair  | SGNS | Our |
-| ------------- | ------------- |
 | absence-presence  | 0.395  | 0.43 |
 | accept-refuse | 0.582  | 0.622 |
 | advantage-disadvantage  |  0.481  | 0.52 |
