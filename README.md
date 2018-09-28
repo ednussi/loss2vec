@@ -34,7 +34,7 @@ We chose to implement a similar approach to that which was presented in [2]. Thi
 
 Where the term in the first line is the same as in the original SGNS model, and the second term integrates the lexical contrast information: A(w)and S(w)are sets of antonyms and synonyms of the word w respectively, and W(c)represents words that have positive LMI score, defined as follows [4]:
 
-W(c) = {w s.t. xW  f(x, c) log2( f(x,c)f(x)f(c))0}e
+<a href="https://www.codecogs.com/eqnedit.php?latex=W(c)=&space;\{w&space;\,s.t.\,\forall&space;x\in&space;W&space;\,&space;f(x,c)\cdot&space;log_2(\frac{f(x,c)}{f(x)f(c)}\geq0)\}" target="_blank"><img src="https://latex.codecogs.com/gif.latex?W(c)=&space;\{w&space;\,s.t.\,\forall&space;x\in&space;W&space;\,&space;f(x,c)\cdot&space;log_2(\frac{f(x,c)}{f(x)f(c)}\geq0)\}" title="W(c)= \{w \,s.t.\,\forall x\in W \, f(x,c)\cdot log_2(\frac{f(x,c)}{f(x)f(c)}\geq0)\}" /></a>
 
 Where f(x) is the frequency of a word x in the corpus.
 
@@ -45,10 +45,9 @@ In order to simplify the problem, we introduced the following modifications:
   * 100 or more occurrences in corpus
   * Has 1 or more synonyms
   * Has 1 or more antonyms
-  For the words that only appeared 100 or more times but don’t meet other requirements, we compute regular SGNS objective. Synonyms and antonyms for all the words in original vocabulary are extracted using NLTK’s WordNet interface. As there are far less antonyms than synonyms for most of the words, we also considered synonyms of antonyms as antonyms for the target word.
+  For the words that only appeared 100 or more times but don’t meet other requirements, we compute regular SGNS objective. Synonyms and antonyms for all the words in original vocabulary are extracted using NLTK’s WordNet interface. As there are far less antonyms than synonyms for most of the words, we also considered *synonyms* of *antonyms* as antonyms for the target word.
 * We implemented a simplified dLCE objective and updated the loss according to:
- wV cV{#(w,c)log (sim(w,c))+k#(wP0(c) log (-sim(w,c)) 
-+1#(w,u)uS(w)sim(w,u)-1#(w,v)uA(w)sim(w,v)}
+<a href="https://www.codecogs.com/eqnedit.php?latex=\sum_{w\in&space;V}&space;\sum_{c\in&space;V}&space;\left&space;(\&hash;(w,c)\cdot&space;log(\sigma(sim(w,c)))&plus;&space;k\cdot\&hash;(wP_0(c)\cdot&space;log(\sigma(-sim(w,c)))&space;&plus;\frac{1}{\&hash;(w,u)}&space;\sum_{u\in&space;W(c)\bigcap&space;S(w)}sim(w,u)&plus;&space;\frac{1}{\&hash;(w,v)}&space;\sum_{v\in&space;W(c)\bigcap&space;A(w)}sim(w,v)&space;\right&space;)" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\sum_{w\in&space;V}&space;\sum_{c\in&space;V}&space;\left&space;(\&hash;(w,c)\cdot&space;log(\sigma(sim(w,c)))&plus;&space;k\cdot\&hash;(wP_0(c)\cdot&space;log(\sigma(-sim(w,c)))&space;&plus;\frac{1}{\&hash;(w,u)}&space;\sum_{u\in&space;W(c)\bigcap&space;S(w)}sim(w,u)&plus;&space;\frac{1}{\&hash;(w,v)}&space;\sum_{v\in&space;W(c)\bigcap&space;A(w)}sim(w,v)&space;\right&space;)" title="\sum_{w\in V} \sum_{c\in V} \left (\#(w,c)\cdot log(\sigma(sim(w,c)))+ k\cdot\#(wP_0(c)\cdot log(\sigma(-sim(w,c))) +\frac{1}{\#(w,u)} \sum_{u\in W(c)\bigcap S(w)}sim(w,u)+ \frac{1}{\#(w,v)} \sum_{v\in W(c)\bigcap A(w)}sim(w,v) \right )" /></a>
   Note: we have implemented the LMI part, but due to runtime/memory problems it was extremely hard to test it on somewhat reasonable corpus.
 * When getting the context word for synonyms and antonyms, we only sampled from at most 10000 of all of their contexts (uniformly sampled from the corpus), again because of memory issues.
 
@@ -64,8 +63,8 @@ Previous to the training, we extracted the following from BNC:
 * LMI values for all pairs of vocabulary words
 
 ### Building Test Cases
-The test consists from word quartets [w1, w2 , w3, w4] such that  w1, w2  and w3, w4are pairs of a word and its antonym respectively. Examples: [absence, presence, comfort, discomfort], [hate, love, forget, remember]. For each such quartet we create a direction vector using the first pair, apply it on the 3rd word and check if the 4th word is in the top 5 proximity of the result
-w3 + (w2 -w1)  w4         ,where refers to top 5 proximity 
+The test consists from word quartets [w1, w2 , w3, w4] such that  w1, w2  and w3, w4are pairs of a word and its antonym respectively. Examples: [absence, presence, comfort, discomfort], [hate, love, forget, remember]. For each such quartet we create a direction vector using the first pair, apply it on the 3rd word and check if the 4th word is in the top 5 proximity of the result <a href="https://www.codecogs.com/eqnedit.php?latex=w_3&plus;(w_2-w_1)\approx&space;w_4" target="_blank"><img src="https://latex.codecogs.com/gif.latex?w_3&plus;(w_2-w_1)\approx&space;w_4" title="w_3+(w_2-w_1)\approx w_4" /></a> ,where the approximity sign refers to top 5 proximity.
+
 We refer to this task as “antonym accordance”; despite being somewhat non-intuitive for human definition of antonyms, this task is still a good indicator of relative antonym placement in resulting vector space. In total we had 74526 such test cases, from which 63302 were selected to use on BNC (others included non-vocabulary words as per our definition).
 
 Examples (after PCA dimensionality reduction to 2D):
