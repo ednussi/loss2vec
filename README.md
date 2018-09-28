@@ -95,8 +95,12 @@ The power of our model comes in the form that we only had a partial list of anto
 
 We have used the code provided from [5] as SGNS baseline implementation, and as a starting point for loss function customization. The code is attached to this submission. 
 To run preprocessing tasks on a corpus:
-python3 loss2vec/data/scripts/extract_wn_syn_ant.py /path/to/corpus.txt (requires nltk with wordnet, spaCy, numpy)
-python3 loss2vec/data/scripts/extract_counts.py /path/to/corpus.txt (requires spaCy, numpy, pandas)
+'''
+python3 loss2vec/data/scripts/extract_wn_syn_ant.py /path/to/corpus.txt 
+(requires nltk with wordnet, spaCy, numpy)
+python3 loss2vec/data/scripts/extract_counts.py /path/to/corpus.txt 
+(requires spaCy, numpy, pandas)
+'''
 To run our model training (requires tensorflow):
 First compile the sampling tensorflow kernels:
 TF_INC=$(python -c 'import tensorflow as tf; print(tf.sysconfig.get_include())')
