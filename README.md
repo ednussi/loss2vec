@@ -97,28 +97,27 @@ We have used the code provided from [5] as SGNS baseline implementation, and as 
 To run preprocessing tasks on a corpus:
 
 ```
-function test() {
-  console.log("notice the blank line before this function?");
-}
-```
-
-'''
 python3 loss2vec/data/scripts/extract_wn_syn_ant.py /path/to/corpus.txt 
 (requires nltk with wordnet, spaCy, numpy)
 python3 loss2vec/data/scripts/extract_counts.py /path/to/corpus.txt 
 (requires spaCy, numpy, pandas)
-'''
+```
 
 To run our model training (requires tensorflow):
 First compile the sampling tensorflow kernels:
+```
 TF_INC=$(python -c 'import tensorflow as tf; print(tf.sysconfig.get_include())')
 g++ -std=c++11 -shared word2vec_ops.cc word2vec_kernels.cc -o word2vec_ops.so -fPIC -I $TF_INC -O2 -D_GLIBCXX_USE_CXX11_ABI=0
+```
+
 Then run our model training:
+```
   python3 word2vec_dlce.py 
 --train_data=/path/to/corpus.txt --eval_data=/path/to/loss2vec/data/test-antonyms.txt --save_path=/path/to/save/tensorflow/model 
 --syn_threshold=10 
 --ant_threshold=2 
 --vocabs_root=/path/to/syn/ant/count/context/pickles/folder
+```
 
 Please note that the code is not optimized, hence memory usage is not too efficient, and training on larger corpora becomes even more time- and memory-demanding.
 
