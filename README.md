@@ -20,7 +20,8 @@ In essence we are to create a framework that allows simple modifications to the 
 
 In regular skip-gram model with negative sampling (SGNS) such as presented in [3] we can write the objective as
 
- wV cV{#(w,c)log (sim(w,c))+k#(wP0(c) log (-sim(w,c))} 
+
+<a href="https://www.codecogs.com/eqnedit.php?latex=\sum_{w\inV}\sum_{c\inV}\&hash;(w,c)&space;\cdot&space;log(\sigma(sim(w,c)))&plus;k\cdot&space;\&hash;(w\cdot&space;P_0(c)\cdot&space;log(\sigma(-sim(w,c))))" target="_blank"><img src="https://latex.codecogs.com/gif.latex?\sum_{w\inV}\sum_{c\inV}\&hash;(w,c)&space;\cdot&space;log(\sigma(sim(w,c)))&plus;k\cdot&space;\&hash;(w\cdot&space;P_0(c)\cdot&space;log(\sigma(-sim(w,c))))" title="\sum_{w\inV}\sum_{c\inV}\#(w,c) \cdot log(\sigma(sim(w,c)))+k\cdot \#(w\cdot P_0(c)\cdot log(\sigma(-sim(w,c))))" /></a>
 
 Where V is the vocabulary; w,c are target and context words respectively; #(w,c)is the number of appearances of the target word with the context word; (x)=11+e-x is a sigmoid function; sim(w1,w2)is the cosine similarity between the two embedded vectors of the corresponding words w1 and w2.
 Thus the first term represents the co-occurrences between a word w and a context c within a predefined context window. The second term refers to negative sampling, where k is the number of negatively sampled words, #(w) is the number of appearances of w as a target word in the unigram distribution P0of its negative context c.
